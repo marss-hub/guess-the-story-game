@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+
+    <script>
+      function lastCharFromString(str) {
+        return str.substr(-1);
+      }
+
+      function strLength(str) {
+        return str.length;
+      }
+    </script>
+
+    <script>
+      const ABC = [
+        [
+          "а",
+          "у",
+          "о",
+          "ы",
+          "и",
+          "э",
+          "я",
+          "ю",
+          "ё",
+          "е",
+          "А",
+          "У",
+          "О",
+          "Ы",
+          "И",
+          "Э",
+          "Я",
+          "Ю",
+          "Ё",
+          "Е",
+        ],
+        [
+          "б",
+          "в",
+          "г",
+          "д",
+          "ж",
+          "з",
+          "й",
+          "к",
+          "л",
+          "м",
+          "н",
+          "п",
+          "р",
+          "с",
+          "т",
+          "ф",
+          "х",
+          "ц",
+          "ч",
+          "ш",
+          "щ",
+          "ь",
+          "ъ",
+          "Б",
+          "В",
+          "Г",
+          "Д",
+          "Ж",
+          "З",
+          "Й",
+          "К",
+          "Л",
+          "М",
+          "Н",
+          "П",
+          "Р",
+          "С",
+          "Т",
+          "Ф",
+          "Х",
+          "Ц",
+          "Ч",
+          "Ш",
+          "Щ",
+          "Ь",
+          "Ъ",
+        ],
+        [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "0",
+          "!",
+          ".",
+          ",",
+          "@",
+          "#",
+          "$",
+          "%",
+          "^",
+          "&",
+          "*",
+          "(",
+          ")",
+          "-",
+          "_",
+          "+",
+          "=",
+          "№",
+          ";",
+          ":",
+          "?",
+          "/",
+          "|",
+          "<",
+          ">",
+          "{",
+          "}",
+          "[",
+          "]",
+        ],
+        [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h",
+          "i",
+          "j",
+          "k",
+          "l",
+          "m",
+          "n",
+          "o",
+          "p",
+          "q",
+          "r",
+          "s",
+          "t",
+          "u",
+          "v",
+          "w",
+          "x",
+          "y",
+          "z",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+        ],
+        [],
+      ];
+
+      //START вся игра
+      let rePlay = true;
+
+      while (rePlay === true) {
+        //START сообщение с инструкцией для первого этапа
+        alert(
+          `Добро пожаловать в игру-загадку! Тут есть история, контекст которой ты можешь попробовать отгадать. \n \n Ты можешь вводить по одному слова, которые хочешь проверить на попадание в контект истории, а я отвечу, соответстует твое предложение контексту или нет. Я дам тебе 7 попыток. \n \nЗатем тебе нужно будет самому ввести три слова, которые должны совпасть с контекстом (например, если ты выяснил, что слова "Горыныч",  "Яга", "лес" - подходят, можешь проверить на соответствие контексту слова "ступа", "избушка", "богатырь" \n \n Давай договоримся, что в словах у нас только буквы и длина слов будет больше трех букв, ну а без ежей и ужей мы как-нибудь обойдемся в этот раз. \n \n Приступим?`
+        );
+        //END сообщение с инструкцией для первого этапа
+
+        //START шаг 1-го этапа игры
+        for (let i3 = 7; i3 !== 0; i3--) {
+          //проверка: введено больше 3 символов
+          let userGuess = "default";
+          let userGuessLenght = 0;
+
+          while (userGuessLenght < 3) {
+            userGuess = prompt(
+              `Осталось попыток: ${i3} Введи свое предположение чтобы проверить его:`
+            );
+            userGuessLenght = strLength(userGuess); //считаем к-во символов, должно быть число
+          }
+
+          if (userGuess === null) break; //выход
+
+          //START проверка на совпадение последнего символа с одним из массивов
+          const lastCharUserGuess = lastCharFromString(userGuess);
+          let subMas = null;
+          SearchChar: for (let i = 0; ABC[i] !== undefined; i++) {
+            subMas = i;
+
+            for (let i2 = 0; ABC[subMas][i2] !== undefined; i2++) {
+              if (ABC[subMas][i2] === lastCharUserGuess) {
+                break SearchChar;
+              }
+            }
+          }
+          //END проверка на совпадение последнего символа с одним из массивов
+
+          if (subMas === 0) {
+            alert("Твое предположение верно!");
+          } else if (subMas === 1) {
+            alert("Твое предположение ошибочно!");
+          } else if (subMas === 2) {
+            alert(
+              "Это что ещё за закорючки?! Договорились же писать БУКВАМИ !"
+            );
+          } else if (subMas === 3) {
+            alert("Серьезно? Английский?? Мы вроде на русском общаемся");
+          } else alert("Увы, не знаю такого слова");
+        }
+        //END шаг 1-го этапа игры
+
+        //START сообщение с инструкцией для второго этапа
+        alert(
+          `Ого! Ты добрался до второго этапа! Надеюсь, успел разобраться о чем идет речь в нашей истории?\n \n Теперь тебе нужно ввести три слова, которые должны совпасть с контекстом загаданного сюжета. Если с контекстом совпадут все три слова - ты победил! \n \n В словах как и раньше только буквы и их не мнее трех. \n \n Готов?`
+        );
+        //END сообщение с инструкцией для второго этапа
+
+        //START шаг 2-го этапа игры
+        let answerSumm = 0;
+        for (let i5 = (i4 = 3); i4 !== 0; i4--) {
+          //проверка: введено больше 3 символов
+          let userAnswer = "default";
+          let userAnswerLenght = 0;
+
+          while (userAnswerLenght < 3) {
+            userAnswer = prompt(
+              `Итак, что ещё есть в задуманной истории? Осталось ввести ответов: ${i4} из ${i5}`
+            );
+            userAnswerLenght = strLength(userAnswer); //считаем к-во символов, должно быть число
+          }
+          if (userAnswer === null) break; //выход
+
+          //START проверка на совпадение последнего символа с одним из массивов
+          const lastCharUserAnswer = lastCharFromString(userAnswer);
+          let subMas = null;
+
+          for (let i = 0; ABC[i] !== undefined; i++) {
+            subMas = i;
+            for (let i2 = 0; ABC[subMas][i2] !== undefined; i2++) {
+              if (ABC[subMas][i2] === lastCharUserAnswer) {
+                answerSumm += subMas;
+              }
+            }
+          }
+          //END проверка на совпадение последнего символа с одним из массивов
+        }
+        //END шаг 2-го этапа игры
+
+        //вывод результата игры
+        if (answerSumm === 0) {
+          alert(
+            `ПОБЕДА! \n \nТы угадал суть истории и трижды попал в контекст! Апплодисменты!`
+          );
+        } else if (answerSumm > 0) {
+          alert(
+            `ПРОИГРЫШ! \n \nТы не угадал суть истории и ошибся с предположениями, увы!`
+          );
+        } else {
+          alert("Произошла ошибка");
+        }
+
+        rePlay = confirm("Попробовать ещё раз?");
+      }
+
+      //END вся игра
+    </script>
+  </body>
+</html>
